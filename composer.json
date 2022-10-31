@@ -1,0 +1,21 @@
+{
+    "name": "micro/plugin-locator",
+    "description": "Micro Framework plugin",
+    "type": "library",
+    "license": "MIT",
+    "version": "0.1",
+    "autoload": {
+        "psr-4": {
+            "Micro\\Plugin\\Locator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stanislau Komar",
+            "email": "stanislau_komar@epam.com"
+        }
+    ],
+    "require": {
+        "symfony/finder": "^6.1"
+    }
+}
