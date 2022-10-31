@@ -1,6 +1,6 @@
 <?php
 
-namespace Micro\Plugin\Locator;
+namespace Micro\Plugin\Locator\Locator;
 
 use Micro\Framework\Kernel\KernelInterface;
 use Symfony\Component\Finder\Finder;

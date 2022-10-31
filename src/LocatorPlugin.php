@@ -5,8 +5,11 @@ namespace Micro\Plugin\Locator;
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
 use Micro\Framework\Kernel\Plugin\AbstractPlugin;
+use Micro\Kernel\App\AppKernelInterface;
 use Micro\Plugin\Locator\Facade\LocatorFacade;
 use Micro\Plugin\Locator\Facade\LocatorFacadeInterface;
+use Micro\Plugin\Locator\Locator\LocatorFactory;
+use Micro\Plugin\Locator\Locator\LocatorFactoryInterface;
 
 class LocatorPlugin extends AbstractPlugin
 {
@@ -18,7 +21,7 @@ class LocatorPlugin extends AbstractPlugin
     public function provideDependencies(Container $container): void
     {
         $container->register(LocatorFacadeInterface::class, function (
-            KernelInterface $kernel
+            AppKernelInterface $kernel
         ) {
             $this->kernel = $kernel;
 

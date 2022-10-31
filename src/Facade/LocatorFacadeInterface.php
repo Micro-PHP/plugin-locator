@@ -9,5 +9,5 @@ interface LocatorFacadeInterface
      *
      * @return iterable
      */
-    public function lookupClasses(string $interfaceName): iterable;
+    public function lookupClassesImplementedInterface(string $interfaceName): iterable;
 }

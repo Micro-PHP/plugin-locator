@@ -2,7 +2,7 @@
 
 namespace Micro\Plugin\Locator\Facade;
 
-use Micro\Plugin\Locator\LocatorFactoryInterface;
+use Micro\Plugin\Locator\Locator\LocatorFactoryInterface;
 
 class LocatorFacade implements LocatorFacadeInterface
 {
@@ -18,7 +18,7 @@ class LocatorFacade implements LocatorFacadeInterface
     /**
      * {@inheritDoc}
      */
-    public function lookupClasses(string $interfaceName): iterable
+    public function lookupClassesImplementedInterface(string $interfaceName): iterable
     {
         return $this->locatorFactory->create()->lookup($interfaceName);
     }
