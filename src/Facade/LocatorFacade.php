@@ -18,8 +18,10 @@ class LocatorFacade implements LocatorFacadeInterface
     /**
      * {@inheritDoc}
      */
-    public function lookupClassesImplementedInterface(string $interfaceName): iterable
+    public function lookup(string $classOrInterfaceName): iterable
     {
-        return $this->locatorFactory->create()->lookup($interfaceName);
+        return $this->locatorFactory
+            ->create()
+            ->lookup($classOrInterfaceName);
     }
 }

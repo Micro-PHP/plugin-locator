@@ -5,9 +5,9 @@ namespace Micro\Plugin\Locator\Locator;
 interface LocatorInterface
 {
     /**
-     * @param string $interfaceName
+     * @param string $classOrInterfaceName
      *
-     * @return iterable<string>
+     * @return \Generator<string>
      */
-    public function lookup(string $interfaceName): iterable;
+    public function lookup(string $classOrInterfaceName): \Generator;
 }

@@ -19,13 +19,30 @@ class Locator implements LocatorInterface
     /**
      * {@inheritDoc}
      */
-    public function lookup(string $interfaceName): iterable
+    public function lookup(string $classOrInterfaceName): \Generator
     {
+        $isInterface = interface_exists($classOrInterfaceName);
+
+        if(!$isInterface && !class_exists($classOrInterfaceName)) {
+            return;
+        }
+
         foreach ($this->kernel->plugins() as $plugin) {
             $reflection = $this->createReflectionClass($plugin);
             foreach ($this->getPluginClasses($reflection) as $pluginInternalClassName) {
                 $pluginClassReflection = $this->createReflectionClass($pluginInternalClassName);
-                if(!in_array($interfaceName, $pluginClassReflection->getInterfaceNames())) {
+
+                if($isInterface) {
+                    if(!in_array($classOrInterfaceName, $pluginClassReflection->getInterfaceNames())) {
+                        continue;
+                    }
+
+                    yield $pluginInternalClassName;
+
+                    continue;
+                }
+
+                if(!$pluginClassReflection->isSubclassOf($classOrInterfaceName)) {
                     continue;
                 }
 
@@ -45,10 +62,15 @@ class Locator implements LocatorInterface
         $pluginNamespace = $reflection->getNamespaceName();
 
         $finder = new Finder();
-        $finder
-            ->in($pluginBasePath . '/**')
-            ->name('*.php')
-            ->notName('*Interface.php');
+        try {
+            $finder
+                ->in($pluginBasePath . '/**')
+                ->name('*.php')
+                ->notName('*Interface.php');
+
+        } catch (\Throwable $exception) {
+            return [];
+        }
 
         foreach ($finder as $fileClass) {
             $relative = str_replace($pluginBasePath, '', $fileClass);
