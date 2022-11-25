@@ -5,9 +5,9 @@ namespace Micro\Plugin\Locator\Facade;
 interface LocatorFacadeInterface
 {
     /**
-     * @param string $interfaceName
+     * @param string $classOrInterfaceName
      *
      * @return iterable
      */
-    public function lookupClassesImplementedInterface(string $interfaceName): iterable;
+    public function lookup(string $classOrInterfaceName): iterable;
 }
