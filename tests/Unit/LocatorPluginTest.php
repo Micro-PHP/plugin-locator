@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Micro\Plugin\Locator\Test\Unit;
 
 use Micro\Kernel\App\AppKernel;
+use Micro\Plugin\EventEmitter\Business\Locator\EventListenerClassLocatorInterface;
 use Micro\Plugin\Locator\Facade\LocatorFacadeInterface;
-use Micro\Plugin\Locator\Locator\LocatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class LocatorPluginTest extends TestCase
@@ -34,9 +34,13 @@ class LocatorPluginTest extends TestCase
         /** @var LocatorFacadeInterface $locator */
         $locator = $kernel->container()->get(LocatorFacadeInterface::class);
         $i = 0;
-        foreach ($locator->lookup(LocatorInterface::class) as $internalClass) {
+        foreach ($locator->lookup(EventListenerClassLocatorInterface::class) as $internalClass) {
             ++$i;
-            $this->assertTrue(\in_array(LocatorInterface::class, class_implements($internalClass)));
+            $this->assertTrue(\in_array(EventListenerClassLocatorInterface::class, class_implements($internalClass)));
+        }
+
+        foreach ($locator->lookup('ClassNoExists') as $plugin) {
+            throw new \Exception('Oh, no.');
         }
 
         $this->assertTrue((bool) $i);

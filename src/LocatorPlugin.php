@@ -13,22 +13,14 @@ namespace Micro\Plugin\Locator;
 
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
-use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
 use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
-use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
-use Micro\Plugin\Locator\Configuration\LocatorPluginConfigurationInterface;
 use Micro\Plugin\Locator\Facade\LocatorFacade;
 use Micro\Plugin\Locator\Facade\LocatorFacadeInterface;
 use Micro\Plugin\Locator\Locator\LocatorFactory;
 use Micro\Plugin\Locator\Locator\LocatorFactoryInterface;
 
-/**
- * @method LocatorPluginConfigurationInterface configuration()
- */
-class LocatorPlugin implements DependencyProviderInterface, ConfigurableInterface
+class LocatorPlugin implements DependencyProviderInterface
 {
-    use PluginConfigurationTrait;
-
     private ?KernelInterface $kernel = null;
 
     /**

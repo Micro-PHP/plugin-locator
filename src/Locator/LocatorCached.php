@@ -12,7 +12,7 @@
 namespace Micro\Plugin\Locator\Locator;
 
 /**
- * @todo:
+ * @todo: Update this afrer implements micro/cache plugin.
  */
 class LocatorCached implements LocatorInterface
 {
@@ -30,7 +30,11 @@ class LocatorCached implements LocatorInterface
     public function lookup(string $classOrInterfaceName): \Generator
     {
         if (\array_key_exists($classOrInterfaceName, $this->results)) {
-            return $this->results[$classOrInterfaceName];
+            foreach ($this->results[$classOrInterfaceName] as $class) {
+                yield $class;
+            }
+
+            return;
         }
 
         $results = [];
