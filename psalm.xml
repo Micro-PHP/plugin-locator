@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<psalm
+        errorLevel="2"
+        resolveFromConfigFile="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+
+    </projectFiles>
+
+    <issueHandlers>
+        <ImplementedReturnTypeMismatch>
+            <errorLevel type="info">
+                <file name="src/LocatorPlugin.php" />
+            </errorLevel>
+        </ImplementedReturnTypeMismatch>
+        <PossiblyNullArgument>
+            <errorLevel type="info">
+                <file name="src/LocatorPlugin.php" />
+            </errorLevel>
+        </PossiblyNullArgument>
+        <InvalidReturnType>
+            <errorLevel type="info">
+                <file name="src/Locator/Locator.php"/>
+            </errorLevel>
+        </InvalidReturnType>
+    </issueHandlers>
+
+</psalm>

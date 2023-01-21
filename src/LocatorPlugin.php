@@ -1,21 +1,25 @@
 <?php
 
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Locator;
 
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
-use Micro\Framework\Kernel\Plugin\AbstractPlugin;
-use Micro\Kernel\App\AppKernelInterface;
-use Micro\Plugin\Locator\Configuration\LocatorPluginConfigurationInterface;
+use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
 use Micro\Plugin\Locator\Facade\LocatorFacade;
 use Micro\Plugin\Locator\Facade\LocatorFacadeInterface;
 use Micro\Plugin\Locator\Locator\LocatorFactory;
 use Micro\Plugin\Locator\Locator\LocatorFactoryInterface;
 
-/**
- * @method LocatorPluginConfigurationInterface configuration()
- */
-class LocatorPlugin extends AbstractPlugin
+class LocatorPlugin implements DependencyProviderInterface
 {
     private ?KernelInterface $kernel = null;
 
@@ -25,7 +29,7 @@ class LocatorPlugin extends AbstractPlugin
     public function provideDependencies(Container $container): void
     {
         $container->register(LocatorFacadeInterface::class, function (
-            AppKernelInterface $kernel
+            KernelInterface $kernel
         ) {
             $this->kernel = $kernel;
 
@@ -33,9 +37,6 @@ class LocatorPlugin extends AbstractPlugin
         });
     }
 
-    /**
-     * @return LocatorFacadeInterface
-     */
     protected function createLocatorFacade(): LocatorFacadeInterface
     {
         return new LocatorFacade(
@@ -43,9 +44,6 @@ class LocatorPlugin extends AbstractPlugin
         );
     }
 
-    /**
-     * @return LocatorFactoryInterface
-     */
     protected function createLocatorFactory(): LocatorFactoryInterface
     {
         return new LocatorFactory($this->kernel);
