@@ -1,23 +1,25 @@
 <?php
 
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Locator\Facade;
 
 use Micro\Plugin\Locator\Locator\LocatorFactoryInterface;
 
 class LocatorFacade implements LocatorFacadeInterface
 {
-    /**
-     * @param LocatorFactoryInterface $locatorFactory
-     */
     public function __construct(
         private readonly LocatorFactoryInterface $locatorFactory
-    )
-    {
+    ) {
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function lookup(string $classOrInterfaceName): iterable
     {
         return $this->locatorFactory
