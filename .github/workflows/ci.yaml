@@ -37,6 +37,8 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
+      - name: Set composer root version
+        run: "export COMPOSER_ROOT_VERSION=1.9"
 
       - name: "Composer install"
         uses: "ramsey/composer-install@v2"
