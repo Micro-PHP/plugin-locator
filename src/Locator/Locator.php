@@ -97,11 +97,8 @@ class Locator implements LocatorInterface
             $namespaceRelative = str_replace('/', '\\', $relative);
 
             $file = str_replace('.php', '', $pluginNamespace.$namespaceRelative);
-            if (!class_exists($file)) {
-                continue;
-            }
 
-            if (\in_array($file, $this->locatedClasses)) {
+            if (\in_array($file, $this->locatedClasses) || !class_exists($file)) {
                 continue;
             }
 
