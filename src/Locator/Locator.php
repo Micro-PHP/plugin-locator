@@ -16,9 +16,15 @@ use Symfony\Component\Finder\Finder;
 
 class Locator implements LocatorInterface
 {
+    /**
+     * @var array<class-string>
+     */
+    private array $locatedClasses;
+
     public function __construct(
         private readonly KernelInterface $kernel
     ) {
+        $this->locatedClasses = [];
     }
 
     public function lookup(string $classOrInterfaceName): iterable
@@ -56,6 +62,8 @@ class Locator implements LocatorInterface
                 yield $pluginInternalClassName;
             }
         }
+
+        $this->locatedClasses = [];
     }
 
     /**
@@ -63,9 +71,9 @@ class Locator implements LocatorInterface
      *
      * @param \ReflectionClass<T> $reflection
      *
-     * @return class-string<T>[]
+     * @return \Generator<class-string>
      */
-    protected function getPluginClasses(\ReflectionClass $reflection): iterable
+    protected function getPluginClasses(\ReflectionClass $reflection): \Generator
     {
         $filename = $reflection->getFileName();
         if (!$filename) {
@@ -88,10 +96,15 @@ class Locator implements LocatorInterface
             $relative = str_replace($pluginBasePath, '', (string) $splFileInfo);
             $namespaceRelative = str_replace('/', '\\', $relative);
 
-            /*
-             * @phpstan-ignore-next-line
-             */
-            yield str_replace('.php', '', $pluginNamespace.$namespaceRelative);
+            $file = str_replace('.php', '', $pluginNamespace.$namespaceRelative);
+
+            if (\in_array($file, $this->locatedClasses) || !class_exists($file)) {
+                continue;
+            }
+
+            $this->locatedClasses[] = $file;
+
+            yield $file;
         }
     }
 
