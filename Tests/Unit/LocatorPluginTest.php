@@ -11,9 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Locator\Test\Unit;
+namespace Micro\Plugin\Locator\Tests\Unit;
 
-use Micro\Kernel\App\AppKernel;
+use Micro\Framework\KernelApp\AppKernel;
 use Micro\Plugin\EventEmitter\Business\Locator\EventListenerClassLocatorInterface;
 use Micro\Plugin\Locator\Facade\LocatorFacadeInterface;
 use PHPUnit\Framework\TestCase;

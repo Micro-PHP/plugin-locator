@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Locator\Test\Unit\Locator;
+namespace Micro\Plugin\Locator\Tests\Unit\Locator;
 
 use Micro\Plugin\Locator\Locator\Locator;
 use Micro\Plugin\Locator\Locator\LocatorCached;
